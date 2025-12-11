@@ -1,4 +1,4 @@
-// assets/script.js - small enhancement for theme toggle + simple animation (keeps original behavior)
+// assets/js/script.js - small enhancement for theme toggle + simple animation (keeps original behavior)
 (function(){
   const root = document.documentElement;
   const storageKey = 'site_theme';
@@ -27,4 +27,14 @@
   document.querySelectorAll('.card, .news-item, .menu-vertical-item').forEach(el=>{
     observer.observe(el);
   });
+  // Scroll to 80% function
+  function scrollToEightyPercent() {
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const target = scrollHeight * 0.5;
+    window.scrollTo({ top: target, behavior: 'auto' });
+  }
+
+  // Expose globally for manual use or button
+  window.scrollToEightyPercent = scrollToEightyPercent;
+
 })();

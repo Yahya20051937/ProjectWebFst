@@ -80,7 +80,7 @@ $page = $_GET['page'] ?? 'accueil';
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Italie - Voyage et Culture</title>
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="site-container">
@@ -121,133 +121,34 @@ $page = $_GET['page'] ?? 'accueil';
         </aside>
 
         <section class="col-centre">
-            <?php switch($page):
-                case 'accueil': ?>
-                    <h2>Coups de cœur</h2>
-                    <div class="galerie-coeur">
-                        <a href="index.php?page=monuments"><img src="img/rome_mini.jpg" class="thumb" alt="Rome"></a>
-                        <a href="index.php?page=villes"><img src="img/venise_mini.jpg" class="thumb" alt="Venise"></a>
-                        <a href="index.php?page=map"><img src="img/map_mini.jpg" class="thumb" alt="Carte"></a>
-                    </div>
-                    <hr>
-                    <h2>Dernières News</h2>
-                    <?php
-                        $stmt = $pdo->query("SELECT news_id, titre, resume, date_publication FROM News ORDER BY date_publication DESC LIMIT 3");
-                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)):
-                    ?>
-                        <article class="news-item">
-                            <p class="date-pub">Date de publication : <?= e($row['date_publication']) ?></p>
-                            <h4><?= e($row['titre']) ?></h4>
-                            <p><?= e($row['resume']) ?></p>
-                            <a class="btn-detail" href="index.php?page=news_detail&id=<?= (int)$row['news_id'] ?>">Cliquez ici pour plus de détail</a>
-                        </article>
-                    <?php endwhile; ?>
-                    <div class="all-news-link"><a href="index.php?page=toutes_news">>> Toutes les news</a></div>
-                <?php break; ?>
-
-                <?php case 'plan': ?>
-                    <h2>Plan du site</h2>
-                    <ul><li>Accueil</li><li>Villes</li><li>Monuments</li><li>Contact</li></ul>
-                <?php break; ?>
-
-                <?php case 'quisommesnous': ?>
-                    <h2>Qui sommes-nous ?</h2>
-                    <div class="card">
-                        <p><strong>Binôme :</strong></p>
-                        <ul>
-                            <li>Nom : ELHAMMOUMI</li>
-                            <li>Prénom : Youssef</li>
-                            <li>CNE : N14035734</li>
-                            <li>Email : youssef.elhammoumi@usmba.ac.ma</li>
-
-
-
-                            <li>Nom :el gnaoui </li>
-                            <li>Prénom : yahya</li>
-                            <li>CNE : 13234654</li>
-                            <li>Email : yahya.elgnaoui@usmba.ac.ma</li>
-                        </ul>
-                        <img src="img/etudiant.jpg" alt="Photo Étudiant" class="mini-photo">
-                        <img src="img/etudiant1.jpg" alt="Photo Étudiant" class="mini-photo">
-                    </div>
-                <?php break; ?>
-
-                <?php case 'contact': ?>
-                    <h2>Contactez-nous</h2>
-    
-                    <?php if(!empty($msg_contact_etat)) echo $msg_contact_etat; ?>
-
-                    <div class="card">
-                     <form method="post" action="index.php?page=contact">
-            
-            <?= csrf_field() ?>
-            
-                     <label>Votre Nom :</label>
-                    <input type="text" name="cnom" placeholder="Votre nom complet" required>
-            
-                    <label>Votre Email :</label>
-                    <input type="email" name="cemail" placeholder="exemple@email.com" required>
-            
-                    <label>Votre Message :</label>
-                    <textarea name="cmsg" rows="6" placeholder="Écrivez votre message ici..." required></textarea>
-            
-                    <button type="submit" name="btn_contact">Envoyer le message</button>
-                 </form>
-                </div>
-            <?php break; ?>
-
-                <?php case 'monuments': ?>
-    <h2>Sites et Monuments</h2>
-    
-    <div class="news-item">
-        <a href="img/colisee.jpg" target="_blank" title="Voir l'image en grand">
-            <img src="img/colisee.jpg" class="float-img" alt="Le Colisée">
-        </a>
-        <h4>Le Colisée</h4>
-        <p>Un amphithéâtre elliptique situé dans le centre de la ville de Rome.</p>
-    </div>
-
-    <div class="news-item">
-        <a href="img/pise.jpg" target="_blank" title="Voir l'image en grand">
-            <img src="img/pise.jpg" class="float-img" alt="Tour de Pise">
-        </a>
-        <h4>Tour de Pise</h4>
-        <p>Le campanile de la cathédrale Notre-Dame de l’Assomption de Pise.</p>
-    </div>
-<?php break; ?>
-
-
-                <?php case 'villes': ?>
-    <h2>Index des villes</h2>
-    <table>
-        <tr><th>Nom</th><th>Superficie</th><th>Population</th></tr>
-        <tr><td>Rome</td><td>1 285 km²</td><td>2 873 000</td></tr>
-        <tr><td>Milan</td><td>181 km²</td><td>1 352 000</td></tr>
-        <tr><td>Naples</td><td>117 km²</td><td>967 000</td></tr>
-    </table>
-    
-    <h3>Galerie</h3>
-    <a href="img/rome_mini.jpg" target="_blank">
-        <img src="img/rome_mini.jpg" width="100" alt="Rome">
-    </a>
-    <a href="img/venise_mini.jpg" target="_blank">
-        <img src="img/venise_mini.jpg" width="100" alt="Venise">
-    </a>
-<?php break; ?>
-
-                <?php case 'map': ?>
-                    <h2>Carte de l'Italie</h2>
-                    <div class="map-wrapper">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12090886.993685257!2d7.662235562723654!3d42.13962649060641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12d4fe82448dd203%3A0xe22cf55c24635e6f!2sItaly!5e0!3m2!1sen!2sma!4v1700000000000" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                <?php break; ?>
-
-                <?php case 'liens': ?>
-                    <h2>Liens utiles</h2>
-                    <ul><li><img src="img/logo1.png" width="20"> <a href="#">Ambassade</a></li><li><img src="img/logo2.png" width="20"> <a href="#">Office du tourisme</a></li></ul>
-                <?php break; ?>
-
-                <?php case 'news_detail': 
+            <?php
+            switch($page) {
+                case 'accueil':
+                    include __DIR__ . '/html/accueil.php';
+                    break;
+                case 'plan':
+                    include __DIR__ . '/html/plan.html';
+                    break;
+                case 'quisommesnous':
+                    include __DIR__ . '/html/qui_sommes_nous.html';
+                    break;
+                case 'contact':
+                    include __DIR__ . '/html/contact.php';
+                    break;
+                case 'monuments':
+                    include __DIR__ . '/html/monuments.html';
+                    break;
+                case 'villes':
+                    include __DIR__ . '/html/ville.html';
+                    break;
+                case 'map':
+                    include __DIR__ . '/html/carte.html';
+                    break;
+                case 'liens':
+                    include __DIR__ . '/html/lien_utiles.html';
+                    break;
+                case 'news_detail':
+                    // ...existing code...
                     $id = (int)($_GET['id'] ?? 0);
                     $stmt = $pdo->prepare("SELECT * FROM News WHERE news_id = ? LIMIT 1");
                     $stmt->execute([$id]);
@@ -260,10 +161,10 @@ $page = $_GET['page'] ?? 'accueil';
                         <p><a href="index.php">Retour accueil</a></p>
                     <?php else: ?>
                         <p>Article introuvable.</p>
-                    <?php endif; ?>
-                <?php break; ?>
-
-                <?php case 'toutes_news': 
+                    <?php endif;
+                    break;
+                case 'toutes_news':
+                    // ...existing code...
                     $parPage = 10;
                     $pageActuelle = max(1, (int)($_GET['p'] ?? 1));
                     $offset = ($pageActuelle - 1) * $parPage;
@@ -286,20 +187,21 @@ $page = $_GET['page'] ?? 'accueil';
                             <a href="index.php?page=toutes_news&p=<?= $i ?>"<?php if($i== $pageActuelle) echo ' class="active"'; ?>>[<?= $i ?>]</a>
                         <?php endfor; ?>
                     </div>
-                <?php break; ?>
-
-            <?php endswitch; ?>
+                    <?php
+                    break;
+            }
+            ?>
         </section>
 
         <aside class="col-droite">
         <section class="video-widget">
             <h4>Documentaire</h4>
-            <video width="300" height="300" controls poster="img/poster.jpg">
-                    <source src="img/video.mp4" type="video/mp4">
-                    <source src="img/video.webm" type="video/webm">
+            <video width="300" height="300" controls poster="assets/img/poster.jpg">
+                    <source src="assets/video/video.mp4" type="video/mp4">
+                    <source src="assets/img/video.webm" type="video/webm">
 
                      Votre navigateur est trop ancien pour lire cette vidéo. 
-                    <a href="img/video.mp4">Télécharger la vidéo</a>.
+                    <a href="assets/video/video.mp4">Télécharger la vidéo</a>.
             </video>
         </section>
             <div style="text-align:center; font-size:0.8em;">Poster de la vidéo</div>
@@ -329,6 +231,6 @@ $page = $_GET['page'] ?? 'accueil';
     </footer>
 
 </div>
-<script src="assets/script.js"></script>
+<script src="assets/js/script.js"></script>
 </body>
 </html>

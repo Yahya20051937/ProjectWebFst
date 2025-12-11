@@ -1,9 +1,9 @@
 <?php
 // db.php - simple PDO connection (configure your DB params here)
-$DB_HOST = '127.0.0.1';
+$DB_HOST = 'localhost';
 $DB_NAME = 'italie_db';
-$DB_USER = 'root';
-$DB_PASS = 'YoUs1708';
+$DB_USER = 'yahya';
+$DB_PASS = 'pass';
 
 $dsn = "mysql:host={$DB_HOST};dbname={$DB_NAME};charset=utf8mb4";
 $options = [

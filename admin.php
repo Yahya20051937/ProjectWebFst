@@ -100,7 +100,7 @@ if ($is_admin && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_new
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Administration</title>
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="site-container" style="padding:20px;">
